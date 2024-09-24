@@ -63,7 +63,7 @@
                                             <i @class(['fa', 'fa-times' => $empleado->activo == 1, 'fa-check' => $empleado->activo == 0]) aria-hidden="true"></i>
                                         </a>
 
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Eliminar" data-bs-toggle="modal" data-bs-target="#modalEmpleado{{$empleado->id}}">
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEmpleado{{$empleado->id}}">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </button>
 

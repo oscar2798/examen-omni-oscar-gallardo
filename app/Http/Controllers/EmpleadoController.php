@@ -116,7 +116,7 @@ class EmpleadoController extends Controller
             'estado' => 'required',
             'ciudad' => 'required',
             'celular' => 'required',
-            'correo' => is_null($request->id) ? 'required|unique:empleados' : "required|unique:empleados,correo,{$request->id}".'|regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+            'correo' => 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'.is_null($request->id) ? 'required|unique:empleados' : "required|unique:empleados,correo,{$request->id}",
             'activo' => 'required'
         ],
         [
