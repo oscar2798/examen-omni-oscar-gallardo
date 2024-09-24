@@ -67,7 +67,7 @@
                                     @error('salarioDolares') is-invalid @enderror" 
                                     name="salarioDolares" 
                                     onchange="convertirDolares(this.value, {{$moneda}})" 
-                                    value="{{ old('salarioDolares', $empleado->salarioDolares)) }}"
+                                    value="{{ old('salarioDolares', $empleado->salarioDolares) }}"
                                     min="1"
                                     required
                                 >
@@ -87,7 +87,7 @@
                                     id="salarioPesos" 
                                     type="number" 
                                     class="form-control 
-                                    @error('salarioPesos') is-invalid @enderror" 
+                                    @error('salarioPesos') is-invalid @enderror"
                                     name="salarioPesos" 
                                     value="{{ old('salarioPesos', $empleado->salarioPesos) }}" 
                                     min="1"
