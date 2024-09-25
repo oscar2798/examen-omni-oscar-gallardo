@@ -59,7 +59,9 @@ class EmpleadoController extends Controller
      */
     public function show(Empleado $empleado)
     {
-        return view('detalle', ['empleado' => $empleado]);
+        $salarios = $this->salariosIncrementales($empleado);
+
+        return view('detalle', ['empleado' => $empleado, 'salarioPesosXMes' => $salarios[0], 'salarioDolaresXMes' => $salarios[1]]);
     }
 
     /**
@@ -106,9 +108,69 @@ class EmpleadoController extends Controller
 
     }
 
+    public function salariosIncrementales($empleado)
+    {
+        $salarioPesos = $empleado->salarioPesos;
+        $salarioDolares = $empleado->salarioDolares;
+
+        $porcentajes = [0.02, 0.04, 0.06, 0.08, 0.10, 0.12];
+
+        $meses = [1, 2, 3, 4, 5, 6];
+
+        $salarioPesosXMes = array();
+        $salarioDolaresXMes = array();
+
+        foreach ($meses as $mes) {
+            if ($mes === 1) {
+                $totalSalarioPesos = $salarioPesos + $salarioPesos * $porcentajes[0];
+                $totalSalarioDolares = $salarioDolares + $salarioDolares * $porcentajes[0];
+
+                array_push($salarioPesosXMes, $totalSalarioPesos);
+                array_push($salarioDolaresXMes, $totalSalarioDolares);
+            }
+            if ($mes === 2) {
+                $totalSalarioPesos = $salarioPesos + $salarioPesos * $porcentajes[1];
+                $totalSalarioDolares = $salarioDolares + $salarioDolares * $porcentajes[1];
+
+                array_push($salarioPesosXMes, $totalSalarioPesos);
+                array_push($salarioDolaresXMes, $totalSalarioDolares);
+            }
+            if ($mes === 3) {
+                $totalSalarioPesos = $salarioPesos + $salarioPesos * $porcentajes[2];
+                $totalSalarioDolares = $salarioDolares + $salarioDolares * $porcentajes[2];
+
+                array_push($salarioPesosXMes, $totalSalarioPesos);
+                array_push($salarioDolaresXMes, $totalSalarioDolares);
+            }
+            if ($mes === 4) {
+                $totalSalarioPesos = $salarioPesos + $salarioPesos * $porcentajes[3];
+                $totalSalarioDolares = $salarioDolares + $salarioDolares * $porcentajes[3];
+
+                array_push($salarioPesosXMes, $totalSalarioPesos);
+                array_push($salarioDolaresXMes, $totalSalarioDolares);
+            }
+            if ($mes === 5) {
+                $totalSalarioPesos = $salarioPesos + $salarioPesos * $porcentajes[4];
+                $totalSalarioDolares = $salarioDolares + $salarioDolares * $porcentajes[4];
+
+                array_push($salarioPesosXMes, $totalSalarioPesos);
+                array_push($salarioDolaresXMes, $totalSalarioDolares);
+            }
+            if ($mes === 6) {
+                $totalSalarioPesos = $salarioPesos + $salarioPesos * $porcentajes[5];
+                $totalSalarioDolares = $salarioDolares + $salarioDolares * $porcentajes[5];
+
+                array_push($salarioPesosXMes, $totalSalarioPesos);
+                array_push($salarioDolaresXMes, $totalSalarioDolares);
+            }
+        }
+
+        return [$salarioPesosXMes, $salarioDolaresXMes];
+    }
+
     public function validacionRequest(Request $request) {
         $request->validate([
-            'codigo' => is_null($request->id) ? 'required|unique:empleados' : "required|unique:empleados,codigo,{$request->id}",
+            'codigo' => 'required'. (is_null($request->id) ? '|unique:empleados' : "|unique:empleados,codigo,{$request->id}"),
             'nombre' => 'required|regex:/^[a-zA-Z\s]+$/u',
             'salarioDolares' => 'required|numeric|min:1',
             'salarioPesos' => 'required|numeric|min:1',
@@ -116,7 +178,7 @@ class EmpleadoController extends Controller
             'estado' => 'required',
             'ciudad' => 'required',
             'celular' => 'required',
-            'correo' => 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'.is_null($request->id) ? 'required|unique:empleados' : "required|unique:empleados,correo,{$request->id}",
+            'correo' => 'required'. (is_null($request->id) ? '|unique:empleados' : "|unique:empleados,correo,{$request->id}").'|regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
             'activo' => 'required'
         ],
         [

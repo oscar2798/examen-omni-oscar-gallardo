@@ -69,11 +69,11 @@
                     <div class="collapse" id="collapse2">
                         <div class="card card-body">
                             <div>
-                                <canvas id="graficaPesosA" width="200" height="200"></canvas>
+                                <canvas id="graficaPesos2" width="200" height="200"></canvas>
                             </div>
         
                             <div>
-                                <canvas id="graficaDolaresA" width="200" height="200"></canvas>
+                                <canvas id="graficaDolares2" width="200" height="200"></canvas>
                             </div>
                         </div>
                     </div>
@@ -92,40 +92,25 @@
 
 <script>
 
-    var salarioPesos = <?php echo $empleado->salarioPesos ?>;
+    const labels = ['1er Mes - 2%', '2do Mes - 4%', '3er Mes - 6%', '4to Mes 8%', '5to Mes - 10%', '6to Mes - 12%'];
 
-    var aumento2 = Number(salarioPesos) * 0.02;
-    var aumento4 = Number(salarioPesos) * 0.04;
-    var aumento6 = Number(salarioPesos) * 0.06;
-    var aumento8 = Number(salarioPesos) * 0.08;
-    var aumento10 = Number(salarioPesos) * 0.10;
-    var aumento12 = Number(salarioPesos) * 0.12;
+    const borderColors = ['#ff6384', '#36a2eb', '#cc65fe', '#dd2727 ', '#ffce56', '#4bdd27'];
 
-    var primerMes = Number(salarioPesos) + aumento2;
-    var segundoMes = Number(salarioPesos) + aumento4;
-    var tercerMes = Number(salarioPesos) + aumento6;
-    var cuartoMes = Number(salarioPesos) + aumento8;
-    var quintoMes = Number(salarioPesos) + aumento10;
-    var sextoMes = Number(salarioPesos) + aumento12;
+    const salariosPesos = @json($salarioPesosXMes);
+
+    const salariosDolares = @json($salarioDolaresXMes);
 
     const ctx = document.getElementById('graficaPesos');
     
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['1er Mes - 2%', '2do Mes - 4%', '3er Mes - 6%', '4to Mes 8%', '5to Mes - 10%', '6to Mes - 12%'],
+            labels: labels,
             datasets: [{
                 label: 'Total MXN',
-                data: [primerMes, segundoMes, tercerMes, cuartoMes, quintoMes, sextoMes],
+                data: salariosPesos,
                 borderWidth: 5,
-                borderColor: [
-                    '#ff6384',
-                    '#36a2eb',
-                    '#cc65fe',
-                    '#dd2727 ',
-                    '#ffce56',
-                    '#4bdd27'
-                ]
+                borderColor: borderColors
             }]
         },
         options: {
@@ -137,40 +122,17 @@
         }
     });
 
-    var salarioDolares = <?php echo $empleado->salarioDolares ?>;
-
-    var aumentoD2 = Number(salarioDolares) * 0.02;
-    var aumentoD4 = Number(salarioDolares) * 0.04;
-    var aumentoD6 = Number(salarioDolares) * 0.06;
-    var aumentoD8 = Number(salarioDolares) * 0.08;
-    var aumentoD10 = Number(salarioDolares) * 0.10;
-    var aumentoD12 = Number(salarioDolares) * 0.12;
-
-    var primerMesD = Number(salarioDolares) + aumentoD2;
-    var segundoMesD = Number(salarioDolares) + aumentoD4;
-    var tercerMesD = Number(salarioDolares) + aumentoD6;
-    var cuartoMesD = Number(salarioDolares) + aumentoD8;
-    var quintoMesD = Number(salarioDolares) + aumentoD10;
-    var sextoMesD = Number(salarioDolares) + aumentoD12;
-
     const ctx2 = document.getElementById('graficaDolares');
     
     new Chart(ctx2, {
         type: 'bar',
         data: {
-            labels: ['1er Mes - 2%', '2do Mes - 4%', '3er Mes - 6%', '4to Mes 8%', '5to Mes - 10%', '6to Mes - 12%'],
+            labels: labels,
             datasets: [{
                 label: 'Total USD',
-                data: [primerMesD, segundoMesD, tercerMesD, cuartoMesD, quintoMesD, sextoMesD],
+                data: salariosDolares,
                 borderWidth: 1,
-                backgroundColor: [
-                    '#ff6384',
-                    '#36a2eb',
-                    '#cc65fe',
-                    '#dd2727 ',
-                    '#ffce56',
-                    '#4bdd27'
-                ]
+                backgroundColor: borderColors
             }]
         },
         options: {
@@ -184,40 +146,33 @@
 
     // ACOMULABLE //
 
-    var salarioPesosA = <?php echo $empleado->salarioPesos ?>;
+    const salarioPesosA = @json($empleado->salarioPesos);
 
-    var aumento2A = Number(salarioPesosA) * 0.02;
-    var aumento4A = Number(salarioPesosA) * 0.04;
-    var aumento6A = Number(salarioPesosA) * 0.06;
-    var aumento8A = Number(salarioPesosA) * 0.08;
-    var aumento10A = Number(salarioPesosA) * 0.10;
-    var aumento12A = Number(salarioPesosA) * 0.12;
+    const aumento2A = Number(salarioPesosA) * 0.02;
+    const aumento4A = Number(salarioPesosA) * 0.04;
+    const aumento6A = Number(salarioPesosA) * 0.06;
+    const aumento8A = Number(salarioPesosA) * 0.08;
+    const aumento10A = Number(salarioPesosA) * 0.10;
+    const aumento12A = Number(salarioPesosA) * 0.12;
 
-    var primerMesA = Number(salarioPesosA) + aumento2A;
-    var segundoMesA = primerMesA + aumento4A;
-    var tercerMesA = segundoMesA + aumento6A;
-    var cuartoMesA = tercerMesA + aumento8A;
-    var quintoMesA = cuartoMesA + aumento10A;
-    var sextoMesA = quintoMesA + aumento12A;
+    const primerMesA = Number(salarioPesosA) + aumento2A;
+    const segundoMesA = primerMesA + aumento4A;
+    const tercerMesA = segundoMesA + aumento6A;
+    const cuartoMesA = tercerMesA + aumento8A;
+    const quintoMesA = cuartoMesA + aumento10A;
+    const sextoMesA = quintoMesA + aumento12A;
 
-    const ctxA = document.getElementById('graficaPesosA');
+    const ctxA = document.getElementById('graficaPesos2');
     
     new Chart(ctxA, {
         type: 'line',
         data: {
-            labels: ['1er Mes - 2%', '2do Mes - 4%', '3er Mes - 6%', '4to Mes 8%', '5to Mes - 10%', '6to Mes - 12%'],
+            labels: labels,
             datasets: [{
                 label: 'Total MXN',
                 data: [primerMesA, segundoMesA, tercerMesA, cuartoMesA, quintoMesA, sextoMesA],
                 borderWidth: 5,
-                borderColor: [
-                    '#ff6384',
-                    '#36a2eb',
-                    '#cc65fe',
-                    '#dd2727 ',
-                    '#ffce56',
-                    '#4bdd27'
-                ]
+                borderColor: borderColors
             }]
         },
         options: {
@@ -229,40 +184,33 @@
         }
     });
 
-    var salarioDolaresA = <?php echo $empleado->salarioDolares ?>;
+    const salarioDolaresA = @json($empleado->salarioDolares);
 
-    var aumento2DA = Number(salarioDolaresA) * 0.02;
-    var aumento4DA = Number(salarioDolaresA) * 0.04;
-    var aumento6DA = Number(salarioDolaresA) * 0.06;
-    var aumento8DA = Number(salarioDolaresA) * 0.08;
-    var aumento10DA = Number(salarioDolaresA) * 0.10;
-    var aumento12DA = Number(salarioDolaresA) * 0.12;
+    const aumento2DA = Number(salarioDolaresA) * 0.02;
+    const aumento4DA = Number(salarioDolaresA) * 0.04;
+    const aumento6DA = Number(salarioDolaresA) * 0.06;
+    const aumento8DA = Number(salarioDolaresA) * 0.08;
+    const aumento10DA = Number(salarioDolaresA) * 0.10;
+    const aumento12DA = Number(salarioDolaresA) * 0.12;
 
-    var primerMesDA = Number(salarioDolaresA) + aumento2DA;
-    var segundoMesDA = primerMesDA + aumento4DA;
-    var tercerMesDA = segundoMesDA + aumento6DA;
-    var cuartoMesDA = tercerMesDA + aumento8DA;
-    var quintoMesDA = cuartoMesDA + aumento10DA;
-    var sextoMesDA = quintoMesDA + aumento12DA;
+    const primerMesDA = Number(salarioDolaresA) + aumento2DA;
+    const segundoMesDA = primerMesDA + aumento4DA;
+    const tercerMesDA = segundoMesDA + aumento6DA;
+    const cuartoMesDA = tercerMesDA + aumento8DA;
+    const quintoMesDA = cuartoMesDA + aumento10DA;
+    const sextoMesDA = quintoMesDA + aumento12DA;
 
-    const ctx2DA = document.getElementById('graficaDolaresA');
+    const ctx2DA = document.getElementById('graficaDolares2');
     
     new Chart(ctx2DA, {
         type: 'bar',
         data: {
-            labels: ['1er Mes - 2%', '2do Mes - 4%', '3er Mes - 6%', '4to Mes 8%', '5to Mes - 10%', '6to Mes - 12%'],
+            labels: labels,
             datasets: [{
                 label: 'Total USD',
                 data: [primerMesDA, segundoMesDA, tercerMesDA, cuartoMesDA, quintoMesDA, sextoMesDA],
                 borderWidth: 1,
-                backgroundColor: [
-                    '#ff6384',
-                    '#36a2eb',
-                    '#cc65fe',
-                    '#dd2727 ',
-                    '#ffce56',
-                    '#4bdd27'
-                ]
+                backgroundColor: borderColors
             }]
         },
         options: {
